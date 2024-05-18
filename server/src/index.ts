@@ -4,6 +4,7 @@ import { createServer } from 'node:http';
 import dotenv from "dotenv";
 import cors from "cors";
 import { Server, Socket } from "socket.io"
+import { userController } from "./controllers/user.controller";
 
 dotenv.config();
 const app: Express = express();
@@ -25,6 +26,7 @@ app.get(`/`, (req: Request, res: Response) => {
   res.send("It's working!");
 });
 
+app.get('/user', userController);
 
 server.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
