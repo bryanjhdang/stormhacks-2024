@@ -5,11 +5,13 @@ enum result {
 
 export class Game {
     constructor(
-        id : string,
-        name: string,
-        gameTime: Date,
-        awayTeam: string,
-        homeTeam: string,
-        winner: result  
+        public id : string,
+        public name: string,
+        public gameTime: Date,
+        public awayTeam: string,
+        public homeTeam: string,
+
+        //TODO: figrue out later
+        //winner: result  
     ) {};
 }
