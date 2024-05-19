@@ -7,25 +7,25 @@ import { User } from "../models/User";
 export class PoolService {
   constructor() {}
 
-  async createPool(name: string, owner_uid: string, teams: string[], begin: Date, end: Date) {
+  async createPool(name: string, owner_uid: string, teams: string[]) {
     let code = await this.getPoolCode();
     let games = await hockeyHelper.getGames(teams);
-    let newPool = new Pool(name, code, [], games, owner_uid, [], teams);
-    firestoreHelper.createPool(newPool);
+    let newPool = new Pool(name, code, [owner_uid], games, owner_uid, [], teams);
+    await firestoreHelper.createPool(newPool);
     return newPool;
   }
 
-  async connectPool(user: User, code: string) {
+  async connectPool(userId: string, code: string) {
     let pool = await firestoreHelper.getPool(code);
 
-    pool.userIds.push(user.id);
+    pool.userIds.push(userId);
 
     await firestoreHelper.updatePool(pool);
-    return firestoreHelper.getUserPools(user.id);
+    return firestoreHelper.getUserPools(userId);
   }
 
-  async getPools(user: User) {
-    firestoreHelper.getUserPools(user.id);
+  async getPools(userId : string) {
+    return await firestoreHelper.getUserPools(userId);
   }
 
   private async getPoolCode() {

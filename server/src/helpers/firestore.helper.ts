@@ -2,6 +2,7 @@ import * as admin from "firebase-admin"
 import rootPath from "get-root-path";
 import { Pool } from "../models/Pool";
 import dotenv from "dotenv";
+import { Game } from "../models/Game";
 
 dotenv.config();
 
@@ -33,8 +34,28 @@ export class FireStoreHelper  {
         }
     }
 
+    makeSimplePool(pool: Pool): any {
+        return {
+            name: pool.name,
+            roomCode: pool.roomCode,
+            userIds: pool.userIds,
+            games: pool.games.map(game => this.makeSimpleGame(game)),
+            ownerId: pool.ownerId,
+            guesses: pool.guesses,
+            teams: pool.teams,
+        };
+    }
+    
+    makeSimpleGame(game: Game): any {
+        return {
+            id: game.id,
+            name: game.name,
+            // Add other properties as needed
+        };
+    }
+
     async createPool(pool: Pool): Promise<void> {
-        this.poolDB.doc(pool.roomCode).set({...pool});
+        this.poolDB.doc(pool.roomCode).set(this.makeSimplePool(pool));
     }
 
     async getPool(roomCode: string): Promise<Pool> {
@@ -47,7 +68,14 @@ export class FireStoreHelper  {
     }
 
     async getUserPools(userId : string)  {
-        let pools = await this.poolDB.where('userIds', 'array-contains', userId).get();
+        let poolQuery = await this.poolDB.where('userIds', 'array-contains', userId).get();
+
+        const pools: Pool[] = [];
+
+        poolQuery.forEach((doc) => {
+            pools.push(doc.data() as Pool);
+        });
+
         return pools;
     }
 
@@ -60,8 +88,12 @@ export class FireStoreHelper  {
     }
 
     async getAllPools(): Promise<Pool[]> {
-        return (await this.poolDB.listDocuments()).map((doc : any) => {
-            return doc.data() as Pool;});
+        const pools: Pool[] = [];
+
+        (await this.poolDB.get()).forEach(doc => {
+            pools.push(doc.data() as Pool);});
+
+        return pools;
     }
 }
 

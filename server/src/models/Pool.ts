@@ -12,4 +12,16 @@ export class Pool {
         public guesses : Guess[],
         public teams : string[],
     ) {}
+
+    public makeSimple(): any {
+        return {
+            name: this.name,
+            roomCode: this.roomCode,
+            userIds: this.userIds,
+            games: this.games.map(game => game.makeSimple()),
+            ownerId: this.ownerId,
+            guesses: this.guesses,
+            teams: this.teams,
+        };
+    }
 }

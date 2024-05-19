@@ -15,4 +15,17 @@ export class Game {
         public homeTeamScore: number,
         public winningTeam: result,
     ) {};
+
+    makeSimple(): any {
+        return {
+            id: this.id,
+            name: this.name,
+            gameTime: this.gameTime,
+            awayTeam: this.awayTeam,
+            awayTeamScore: this.awayTeamScore,
+            homeTeam: this.homeTeam,
+            homeTeamScore: this.homeTeamScore,
+            winningTeam: this.winningTeam
+        };
+    }
 }
