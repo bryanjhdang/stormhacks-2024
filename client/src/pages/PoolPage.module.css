@@ -1,0 +1,25 @@
+.poolResults {
+  width: 100%;
+  padding: 25px 40px;
+  background-color: #f0f0f0 ;
+}
+
+.roomCodeDisplay {
+  padding: 15px 20px;
+  background-color: #f0f0f0;
+}
+
+.punishmentDisplay {
+  padding: 15px 20px;
+  background-color: #f0f0f0;
+}
+
+.rewardDisplay {
+  padding: 15px 20px;
+  background-color: #f0f0f0;
+}
+
+.leaderboardDisplay {
+  padding: 15px 20px;
+  background-color: #f0f0f0;
+}
