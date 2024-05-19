@@ -9,7 +9,7 @@ import { Game, result } from "./models/Game";
 import { hockeyHelper } from "./helpers/hockey.helper";
 import { poolController } from "./controllers/pool.controller";
 import { guessController } from "./controllers/guess.controller";
-const axios = require('axios').default;
+const axios = require("axios").default;
 
 var gameList: Game[] = [];
 
@@ -80,7 +80,5 @@ app.get("/yesterday", hockeyHelper.getYesterdaysResults);
 app.get("/today", hockeyHelper.getAllTodaysResults);
 
 server.listen(port, () => {
-  console.log(today);
-  console.log(yesterday);
-  console.log(tomorrow);
+  console.log("Server Listening on port fuck knows man");
 });
