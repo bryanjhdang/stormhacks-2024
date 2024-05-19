@@ -11,6 +11,8 @@ export class Pool {
         public ownerId : string,
         public guesses : Guess[],
         public teams : string[],
+        public reward : string,
+        public punishment : string
     ) {}
 
     public makeSimple(): any {

@@ -12,7 +12,7 @@ poolController.get("/:uid", async (req: Request, res: Response) => {
 });
 
 poolController.post("/", async (req: Request, res: Response) => {
-  let newPool = await poolService.createPool(req.body.name, req.body.uid, req.body.teams);
+  let newPool = await poolService.createPool(req.body.name, req.body.uid, req.body.teams, req.body.reward, req.body.punishment);
 
   res.status(StatusCodes.CREATED).json(newPool);
 });

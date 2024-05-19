@@ -72,7 +72,17 @@ function PoolResults(props: any) {
       </Table>
       <Button
         onClick={() => {
-          console.log(guesses);
+          let keys = Object.keys(guesses).map(key => Number(key));
+          let guessToGame = keys.map(key => ({
+            gameId: poolData.games[key],
+            result: guesses[key]
+          }));
+
+          console.log(({
+            userId: currentUser?.uid,
+            poolId: props.pool_id,
+            guesses: guessToGame
+          }))
         }}
       >
         Confirm Bets

@@ -31,3 +31,13 @@ export async function postPool(name: any, uid: any, teams: any) {
 
   return result.data;
 }
+
+export async function placeBets(userId : any, poolId: any, guesses: any) {
+  const result = await axios.post(`${API_URL}/guess`, {
+    userId: userId,
+    poolId: poolId,
+    guesses : guesses
+  })
+
+  return result.data;
+}
