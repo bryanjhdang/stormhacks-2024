@@ -1,9 +1,10 @@
-import { Box, Button, Flex, Stack, Table, Text, Title } from "@mantine/core";
+import { ActionIcon, Box, Button, Flex, Group, Stack, Table, Text, Title } from "@mantine/core";
 import Header from "../components/header/Header";
 import { useParams } from "react-router";
 import { useState } from "react";
 import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
 import styles from './PoolPage.module.css';
+import { IconCopy } from "@tabler/icons-react";
 
 // TODO THIS IS STUB DATA HERE KJLANSKJD KJASDKJ ASKJND K:JASNDKJ KJASDKJLASKJLDNKJLANSDLKJ:NASKJD:NKJL
 interface Game {
@@ -86,11 +87,24 @@ function PoolResults(pool_id: any) {
 function PoolPage() {
   const { pool_id } = useParams<{ pool_id: string }>();
 
+  const CopyRoomCode = () => {
+    if (pool_id) {
+      navigator.clipboard.writeText(pool_id);
+    }
+  }
+
   const RoomCodeDisplay = () => {
     return (
-      <Stack className={styles.roomCodeDisplay}>
+      <Group className={styles.roomCodeDisplay} style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Text>Room Code: {pool_id}</Text>
-      </Stack>
+        <ActionIcon
+          variant="transparent"
+          color="rgba(0, 0, 0, 1)"
+          onClick={CopyRoomCode}
+        >
+          <IconCopy/>
+        </ActionIcon>
+      </Group>
     )
   }
 
