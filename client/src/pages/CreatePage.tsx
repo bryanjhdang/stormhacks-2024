@@ -4,6 +4,7 @@ import Header from "../components/header/Header";
 import { useNavigate } from "react-router";
 import { postPool } from "../classes/HTTPhelpers";
 import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
+import styles from "./CreatePage.module.css";
 
 const hockeyTeams: string[] = [
   "Anaheim Ducks (ANA)",

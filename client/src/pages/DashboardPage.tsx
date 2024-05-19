@@ -65,13 +65,6 @@ function DashboardPage() {
 
       <HeadingDisplay goToCreatePage={goToCreatePage} currentUser={currentUser} />
       <Text>Pools display</Text>
-      {/* {pools.map((id, index) => {
-        return (
-          <Text onClick={() => navigate(`/pool/${id}`)} key={index}>
-            Room: {id}
-          </Text>
-        );
-      })} */}
 
       <Table striped highlightOnHover>
         <thead>
