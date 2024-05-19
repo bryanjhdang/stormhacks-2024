@@ -8,11 +8,9 @@ function CreatePage() {
 		mode: 'uncontrolled',
 		initialValues: {
 			name: '',
-			league: '',
 			teams: '',
 			reward: '',
-			punishment: '',
-			endDate: ''
+			punishment: ''
 		},
 	});
 
@@ -26,14 +24,6 @@ function CreatePage() {
 					withAsterisk
 					key={form.key('name')}
 					{...form.getInputProps('name')}
-				/>
-				<TextInput
-					mt="md"
-					label="League"
-					placeholder="League"
-					withAsterisk
-					key={form.key('league')}
-					{...form.getInputProps('league')}
 				/>
 				<TextInput
 					mt="md"
@@ -56,25 +46,14 @@ function CreatePage() {
 					key={form.key('punishment')}
 					{...form.getInputProps('punishment')}
 				/>
-				<TextInput
-					mt="md"
-					label="End Date"
-					placeholder="End Date"
-					key={form.key('endDate')}
-					{...form.getInputProps('endDate')}
-				/>
-
-
 				<Group justify="center" mt="xl">
 					<Button
 						onClick={() =>
 							form.setValues({
 								name: randomId(),
-								league: '',
 								teams: '',
 								reward: '',
-								punishment: '',
-								endDate: ''
+								punishment: ''
 							})
 						}
 					>
