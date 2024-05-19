@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
 import styles from "./PoolPage.module.css";
 import { IconCopy } from "@tabler/icons-react";
-import { getPoolByCode } from "../classes/HTTPhelpers";
+import { getPoolByCode, placeBets } from "../classes/HTTPhelpers";
 
 function PoolResults(props: any) {
   const [guesses, setGuesses] = useState<{ [key: number]: string }>({});
@@ -71,13 +71,14 @@ function PoolResults(props: any) {
         </tbody>
       </Table>
       <Button
-        onClick={() => {
+        onClick={async () => {
           let keys = Object.keys(guesses).map(key => Number(key));
           let guessToGame = keys.map(key => ({
-            gameId: poolData.games[key],
+            gameId: poolData.games[key].id,
             result: guesses[key]
           }));
-
+          
+          let result = await placeBets(currentUser?.uid, props.pool_id, guessToGame);
           console.log(({
             userId: currentUser?.uid,
             poolId: props.pool_id,
