@@ -1,6 +1,7 @@
 import express, { Request, Response, Router } from "express";
 import { poolService } from "../services/pool.service";
 import { Pool } from "../models/Pool";
+import { StatusCodes } from "http-status-codes";
 
 const poolController: Router = express.Router();
 
@@ -8,9 +9,11 @@ poolController.get('/', (req : Request, res : Response) => {
 
 })
 
-poolController.post('/', (req : Request, res : Response) => {
-    
-    poolService.
+poolController.post('/', async (req : Request, res : Response) => {
+    let newPool = await poolService.createPool(req.body.name, res.locals.user, req.body.teams, new Date(), new Date());
+
+    res.status(StatusCodes.CREATED)
+        .json(newPool);
 })
 
 export { poolController };
