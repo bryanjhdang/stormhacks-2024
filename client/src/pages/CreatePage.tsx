@@ -2,6 +2,7 @@ import { Button, Group, MultiSelect, Select, Text, TextInput } from "@mantine/co
 import { useForm } from "@mantine/form";
 import { randomId } from '@mantine/hooks';
 import Header from "../components/header/Header";
+import { useNavigate } from "react-router";
 
 const hockeyTeams: string[] = [
 	"Anaheim Ducks (ANA)",
@@ -45,33 +46,36 @@ interface PoolFormData {
 	punishment: string;
 }
 
-class PoolForm implements PoolFormData {
-	name: string;
-	teams: string[];
-	reward: string;
-	punishment: string;
-
-	constructor() {
-		this.name = '';
-		this.teams = [];
-		this.reward = '';
-		this.punishment = '';
-	}
-}
-
 function CreatePage() {
+	const navigate = useNavigate();
+
 	const form = useForm<PoolFormData>({
-		initialValues: new PoolForm(),
+		initialValues: {
+			name: '',
+			teams: [],
+			reward: '',
+			punishment: ''
+		},
+		validate: {
+			name: (value) => value.trim().length === 0 ? 'Name must not be empty' : null,
+			teams: (value) => value.length === 0 ? 'At least one team must be chosen' : null
+		}
 	});
 
-	const handleSubmit = () => {
+	const handleSubmit = (values: PoolFormData) => {
 		const submissionData = {
-			...form.values,
+			...values,
 			teams: form.values.teams.map(team => {
 				const match = team.match(/\(([^)]+)\)/);
 				return match ? match[1] : '';
 			})
 		};
+
+		// TODO - Do the API endpoint
+		console.log(submissionData);
+
+		// TODO - Navigate to dashboard for now, change it to move to pool page
+		navigate('/dashboard');
 	};
 
 	return (
@@ -111,7 +115,7 @@ function CreatePage() {
 				/>
 				<Group justify="center" mt="xl">
 					<Button
-						onClick={handleSubmit}
+						onClick={() => form.onSubmit(handleSubmit)()}
 					>
 						Create your pool
 					</Button>
