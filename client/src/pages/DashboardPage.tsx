@@ -1,33 +1,46 @@
+import { MouseEvent, MouseEventHandler } from 'react';
 import { Button, Text } from "@mantine/core"
 import Header from "../components/Header"
+import { useNavigate } from "react-router-dom"
 
-function DashboardPage() {
+interface HeadingDisplayProps {
+  goToCreatePage: MouseEventHandler<HTMLButtonElement>;
+}
 
-	const HeadingDisplay = () => {
-		return (
-			<>
-				<Text>Heading display</Text>
-				<Button>Create room</Button>
-				<Button>Join room</Button>
-			</>
-		)
-	}
+function HeadingDisplay({ goToCreatePage }: HeadingDisplayProps) {
+  return (
+    <>
+      <Text>Heading display</Text>
+      <Button onClick={goToCreatePage}>Create room</Button>
+      <Button>Join room</Button>
+    </>
+  )
+}
 
-	// This should take in an array
-	const PoolsDisplay = () => {
-		return (
-			<Text>Pools display</Text>
-		)
-	}
-
+function PoolsDisplay() {
 	return (
 		<>
-			<Header />
-			<Text>Dashboard Page</Text>
-			<HeadingDisplay />
-			<PoolsDisplay />
+			<Text>Pools display</Text>
 		</>
 	)
+}
+
+function DashboardPage() {
+  const navigate = useNavigate();
+
+  const goToCreatePage = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    navigate('/create');
+  };
+
+  return (
+    <>
+      <Header />
+      <Text>Dashboard Page</Text>
+      <HeadingDisplay goToCreatePage={goToCreatePage} />
+      <PoolsDisplay />
+    </>
+  )
 }
 
 export default DashboardPage
