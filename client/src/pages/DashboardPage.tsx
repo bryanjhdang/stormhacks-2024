@@ -1,7 +1,8 @@
-import { MouseEvent, MouseEventHandler } from 'react';
-import { Button, Text } from "@mantine/core"
-import Header from "../components/Header"
-import { useNavigate } from "react-router-dom"
+import { MouseEvent, MouseEventHandler } from "react";
+import { Button, Text } from "@mantine/core";
+import Header from "../components/Header";
+import { useNavigate } from "react-router-dom";
+import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
 
 interface HeadingDisplayProps {
   goToCreatePage: MouseEventHandler<HTMLButtonElement>;
@@ -14,23 +15,24 @@ function HeadingDisplay({ goToCreatePage }: HeadingDisplayProps) {
       <Button onClick={goToCreatePage}>Create room</Button>
       <Button>Join room</Button>
     </>
-  )
+  );
 }
 
 function PoolsDisplay() {
-	return (
-		<>
-			<Text>Pools display</Text>
-		</>
-	)
+  return (
+    <>
+      <Text>Pools display</Text>
+    </>
+  );
 }
 
 function DashboardPage() {
   const navigate = useNavigate();
+  const { currentUser } = useFirebaseAuth();
 
   const goToCreatePage = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    navigate('/create');
+    navigate("/create");
   };
 
   return (
@@ -39,8 +41,12 @@ function DashboardPage() {
       <Text>Dashboard Page</Text>
       <HeadingDisplay goToCreatePage={goToCreatePage} />
       <PoolsDisplay />
+      {/* 
+      // Display the current user id and name
+      <div>{currentUser?.uid}</div>
+      <div>{currentUser?.displayName}</div> */}
     </>
-  )
+  );
 }
 
-export default DashboardPage
+export default DashboardPage;
