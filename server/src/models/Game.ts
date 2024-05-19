@@ -1,6 +1,7 @@
-enum result {
+export enum result {
     AWAY, 
-    HOME
+    HOME,
+    INCOMPLETE
 }
 
 export class Game {
@@ -9,8 +10,10 @@ export class Game {
         public name: string,
         public gameTime: Date,
         public awayTeam: string,
+        public awayTeamScore: number,
         public homeTeam: string,
-
+        public homeTeamScore: number,
+        public winningTeam: result,
         //TODO: figrue out later
         //winner: result  
     ) {};

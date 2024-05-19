@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { Server, Socket } from "socket.io"
 import { userController } from "./controllers/user.controller";
-import { Game } from "./models/Game";
+import { Game, result } from "./models/Game";
 const axios = require('axios').default;
 
 var gameList: Game[] = []
@@ -33,23 +33,27 @@ app.get(`/`, (req: Request, res: Response) => {
 app.get('/user', userController);
 
 axios
-  .get("https://api-web.nhle.com/v1/score/2024-05-17")
+  .get("https://api-web.nhle.com/v1/score/now")
   .then(function (response : any) {
     //console.log(response.data.games);
     response.data.games.forEach((element : any) => {
-      console.log(element.id);
+      console.log(element);
       var newGame = new Game(
         element.id, 
         `${element.awayTeam.name.default} @ ${element.homeTeam.name.default}`,
         element.gameDate,
         element.awayTeam.abbrev,
-        element.homeTeam.abbrev
+        element.awayTeam.score || 0,
+        element.homeTeam.abbrev,
+        element.homeTeam.score || 0,
+        (element.gameState === `OFF` && element.awayTeam.score === 0 && element.homeTeam.score === 0) || (element.gameState === `ON`) ? result.INCOMPLETE : 
+        (element.awayTeam.score > element.homeTeam.score ? result.AWAY : result.HOME)
+        //element.awayTeam.score > element.homeTeam.score : AWA
       )
-      console.log(newGame);
       gameList.push(newGame);
       //console.log(gameList);
     });
-    console.log(gameList[0])
+    console.log(gameList)
   });
 
 server.listen(port, () => {
