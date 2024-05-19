@@ -1,8 +1,9 @@
-import { Button, Table, Text } from "@mantine/core";
+import { Box, Button, Flex, Stack, Table, Text, Title } from "@mantine/core";
 import Header from "../components/header/Header";
 import { useParams } from "react-router";
 import { useState } from "react";
 import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
+import styles from './PoolPage.module.css';
 
 // TODO THIS IS STUB DATA HERE KJLANSKJD KJASDKJ ASKJND K:JASNDKJ KJASDKJLASKJLDNKJLANSDLKJ:NASKJD:NKJL
 interface Game {
@@ -38,10 +39,7 @@ function PoolResults(pool_id: any) {
   };
 
   return (
-    <>
-      <Text size="xl" mb="md">
-        Pool Results
-      </Text>
+    <div className={styles.poolResults}>
       <Table striped highlightOnHover>
         <thead>
           <tr>
@@ -81,53 +79,75 @@ function PoolResults(pool_id: any) {
       >
         Confirm Bets
       </Button>
-    </>
-  );
-}
-
-function PunishmentDisplay() {
-  return (
-    <>
-      <Text>Punishment</Text>
-    </>
-  );
-}
-
-function RewardDisplay() {
-  return (
-    <>
-      <Text>Rewards</Text>
-    </>
-  );
-}
-
-function Leaderboard() {
-  return (
-    <>
-      <Text>Leaderboard</Text>
-    </>
+    </div>
   );
 }
 
 function PoolPage() {
   const { pool_id } = useParams<{ pool_id: string }>();
 
+  const RoomCodeDisplay = () => {
+    return (
+      <Stack className={styles.roomCodeDisplay}>
+        <Text>Room Code: {pool_id}</Text>
+      </Stack>
+    )
+  }
+
+  const PunishmentDisplay = () => {
+    return (
+      <Stack className={styles.punishmentDisplay}>
+        <Text>Punishment: </Text>
+      </Stack>
+    )
+  };
+
+  const RewardDisplay = () => {
+    return (
+      <Stack className={styles.rewardDisplay}>
+        <Text>Reward: </Text>
+      </Stack>
+    );
+  }
+
+  const Leaderboard = () => {
+    // TODO : Change this with actual data later
+    const leaderboardData = [
+      { name: "Bob Gill", score: 120 },
+      { name: "Brian Fraser", score: 95 },
+      { name: "Joe Mama", score: 140 },
+    ];
+ 
+    leaderboardData.sort((a, b) => b.score - a.score);
+    
+    return (
+      <Stack className={styles.leaderboardDisplay}>
+        <Title order={3}>Leaderboard</Title>
+        {leaderboardData.map((entry, index) => (
+          <Box key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Text>{entry.name}</Text>
+            <Text>{entry.score}</Text>
+          </Box>
+        ))}
+      </Stack>
+    );
+  };
+
   return (
     <>
-      {/* Header */}
       <Header />
-      <div>You are currently in pool: {pool_id}</div>
-      {/* Left side */}
-      <PoolResults pool_id={pool_id} />
-      {/* Pool result */}
-      {/* Right side */}
-      {/* Code */}
-      <Text>Room Code: {pool_id}</Text>
-      {/* Punishment and reward */}
-      <PunishmentDisplay />
-      <RewardDisplay />
-      {/* Leaderboard */}
-      <Leaderboard />
+      <Flex
+        gap="xl"
+        direction="row"
+      >
+        <PoolResults pool_id={pool_id} />
+        <Stack miw={'25%'}>
+          <RoomCodeDisplay />
+          <Leaderboard />
+          <PunishmentDisplay />
+          <RewardDisplay />
+        </Stack>
+      </Flex>
     </>
   );
 }
