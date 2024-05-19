@@ -1,8 +1,8 @@
 import { MouseEvent, MouseEventHandler } from "react";
 import { Button, Text } from "@mantine/core";
-import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
+import Header from "../components/header/Header";
 
 interface HeadingDisplayProps {
   goToCreatePage: MouseEventHandler<HTMLButtonElement>;
