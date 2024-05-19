@@ -5,32 +5,33 @@ import { Pool } from "../models/Pool";
 import { User } from "../models/User";
 
 export class PoolService {
-  public pools: Map<string, Pool>;
-
   constructor() {
-    this.pools = new Map<string, Pool>;
   }
 
   async createPool(name: string, owner: User, teams : string[], begin: Date, end: Date) {
     let code = await this.getPoolCode();
     let games = await hockeyHelper.getGames(teams);
-    let newPool = new Pool(name, code, [], games, owner, [], teams);
-
-    this.pools.set(code, newPool);
-
+    let newPool = new Pool(name, code, [], games, owner.id, [], teams);
+    firestoreHelper.createPool(newPool);
     return newPool;
   }
 
   async connectPool(user : User, code : string) {
-    if (this.pools.has(code)) {
-        this.pools.get(code)?.users.push()
-    }
+    let pool = await firestoreHelper.getPool(code);
+
+    pool.userIds.push(user.id);
+
+    firestoreHelper.updatePool(pool);
   }
 
-  async getPoolCode() {
+  async getPools(user : User) {
+    firestoreHelper
+  }
+
+  private async getPoolCode() {
     let pools = await firestoreHelper.getAllPools();
-    let newCode = undefined;
-    while (newCode == undefined || this.pools.has(newCode)) {
+    let newCode : string = "";
+    while (newCode == "" || pools.some(pool => pool.roomCode == newCode)) {
         newCode =
         Array(4)
         .fill("x")

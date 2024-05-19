@@ -44,6 +44,11 @@ export class FireStoreHelper  {
         return Promise.reject(new Error(`Pool with roomCode ${roomCode} not found`));
     }
 
+    async getUserPools(userId : string)  {
+        let pools = await this.poolDB.where('userIds', 'array-contains', userId).get();
+        return pools;
+    }
+
     async updatePool(pool: Pool): Promise<void> {
         this.createPool(pool);
     }

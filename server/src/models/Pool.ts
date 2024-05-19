@@ -6,11 +6,10 @@ export class Pool {
     public constructor(
         public name: string,
         public roomCode : string,
-        public users : User[],
+        public userIds : string[],
         public games : Game[],
-        public owner : User,
+        public ownerId : string,
         public guesses : Guess[],
         public teams : string[],
-        public id : string = ""
     ) {}
 }

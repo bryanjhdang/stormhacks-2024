@@ -3,8 +3,8 @@ import { User } from "./User";
 
 export class Guess {
     public constructor(
-        public user : User, 
-        public game : Game, 
+        public userId : string, 
+        public gameId : string, 
         public guess : result
     ) {};
 }
