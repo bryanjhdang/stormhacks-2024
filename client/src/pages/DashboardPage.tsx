@@ -1,9 +1,28 @@
-import { MouseEvent, MouseEventHandler } from "react";
-import { Button, Text } from "@mantine/core";
+import { MouseEvent, MouseEventHandler, useState } from "react";
+import { Button, Input, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
 import Header from "../components/header/Header";
 
+
+function JoinButton() {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleButtonClick = () => {
+    console.log("Input Value: ", inputValue); 
+  };
+
+  return (
+    <>
+      <Input 
+        placeholder="Code"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <Button onClick={handleButtonClick}>Join pool</Button>
+    </>
+  );
+}
 interface HeadingDisplayProps {
   goToCreatePage: MouseEventHandler<HTMLButtonElement>;
   currentUser: any;
@@ -13,8 +32,8 @@ function HeadingDisplay({ goToCreatePage, currentUser }: HeadingDisplayProps) {
   return (
     <>
       <Text>Welcome, {currentUser?.displayName}!</Text>
-      <Button onClick={goToCreatePage}>Create room</Button>
-      <Button>Join room</Button>
+      <Button onClick={goToCreatePage}>Create pool</Button>
+      <JoinButton />
     </>
   );
 }
