@@ -58,7 +58,7 @@ axios
   .then(function (response : any) {
     //console.log(response.data.games);
     response.data.games.forEach((element : any) => {
-      console.log(element);
+      //console.log(element);
       var newGame = new Game(
         element.id, 
         `${element.awayTeam.name.default} @ ${element.homeTeam.name.default}`,
@@ -72,26 +72,63 @@ axios
       )
       gameList.push(newGame);
     });
-    console.log(gameList)
+    //console.log(gameList)
   });
 
   const fetchNextDaysData = async () => {
     try {
-      const response = await axios.get("https://api.github.com/users/mapbox");
+      const response = await axios.get(`https://api-web.nhle.com/v1/score/${tomorrow}`);
       console.log(response.data);
-      console.log(response.status);
-      console.log(response.statusText);
-      console.log(response.headers);
-      console.log(response.config);
     } catch (error) {
       // Handle error
       console.error(error);
     }
   };
 
+  const fetchYesterdaysData = async () => {
+    try {
+      const response = await axios.get(`https://api-web.nhle.com/v1/score/${yesterday}`);
+      console.log(response.data);
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
+  };
+
+  const getTeamSchedule = async () => {
+    try {
+      const response = await axios.get(`https://api-web.nhle.com/v1/club-schedule-season/VAN/20232024`);
+      //console.log(response.data);
+      var teamGameList: Game[] = []
+      response.data.games.forEach((element : any) => {
+        //console.log(element);
+        var newGame = new Game(
+          element.id, 
+          `${element.awayTeam.placeName.default} @ ${element.homeTeam.placeName.default}`,
+          element.gameDate,
+          element.awayTeam.abbrev,
+          element.awayTeam.score || 0,
+          element.homeTeam.abbrev,
+          element.homeTeam.score || 0,
+          (element.gameState === `OFF` && element.awayTeam.score === 0 && element.homeTeam.score === 0) || (element.gameState === `ON`) ? result.INCOMPLETE : 
+          (element.awayTeam.score > element.homeTeam.score ? result.AWAY : result.HOME)
+        )
+        teamGameList.push(newGame);
+      });
+      console.log(teamGameList);
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
+  }
+
+  app.get('/tomorrow', fetchNextDaysData);
+  app.get('/yesterday', fetchYesterdaysData);
+  app.get('/teamSchedule', getTeamSchedule);
+
 server.listen(port, () => {
   console.log(today);
   console.log(yesterday);
   console.log(tomorrow);
   console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+}); 
