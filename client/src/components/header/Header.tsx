@@ -9,7 +9,6 @@ function Header() {
   const signOut = async () => {
     try {
       await firebaseSignOut();
-      sessionStorage.removeItem("token");
       navigate("/");
     } catch (error) {
       console.log(error);

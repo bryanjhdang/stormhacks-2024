@@ -18,13 +18,8 @@ export function SignInForm() {
     setButtonIdle(true);
 
     try {
-      const userCredential = await firebaseSignIn(email, password);
+      await firebaseSignIn(email, password);
       // console.log(userCredential.user)
-
-      const user = userCredential.user;
-      const jwt = await user.getIdToken();
-      sessionStorage.setItem("token", jwt);
-
       navigate("/dashboard");
     } catch (e: any) {
       setButtonIdle(false);
