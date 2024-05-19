@@ -19,7 +19,6 @@ export function SignInForm() {
 
     try {
       await firebaseSignIn(email, password);
-      // console.log(userCredential.user)
       navigate("/dashboard");
     } catch (e: any) {
       setButtonIdle(false);

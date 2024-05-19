@@ -55,7 +55,6 @@ function DashboardPage() {
   useEffect(() => {
     getAllEnteredPools(currentUser?.uid).then((data) => {
       setPools(data);
-      console.log(data);
     });
   }, []);
 

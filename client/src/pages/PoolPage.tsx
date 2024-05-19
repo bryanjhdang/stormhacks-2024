@@ -73,8 +73,6 @@ function PoolResults(props: any) {
       <Button
         onClick={() => {
           console.log(guesses);
-          console.log(poolData);
-          console.log(poolData.games);
         }}
       >
         Confirm Bets
