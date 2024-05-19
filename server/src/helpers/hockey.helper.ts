@@ -60,7 +60,7 @@ export class HockeyHelper {
 
     await Promise.all(teamPromises);
     teamGameList.sort((a, b) => new Date(a.gameTime).getTime() - new Date(b.gameTime).getTime());
-    return teamGameList;
+    return teamGameList.slice(-5);
   }
 
   async getAllTodaysResults(): Promise<Game[]> {
@@ -157,7 +157,6 @@ export class HockeyHelper {
     }
     await Promise.all(teamGameList);
     teamGameList.sort((a, b) => new Date(a.gameTime).getTime() - new Date(b.gameTime).getTime());
-    console.log(teamGameList);
     return teamGameList;
   }
 }

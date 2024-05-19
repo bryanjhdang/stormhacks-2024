@@ -4,13 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
 import Header from "../components/header/Header";
 import styles from "./DashboardPage.module.css";
-import { getAllEnteredPools } from "../classes/HTTPhelpers";
+import { getAllEnteredPools, getPoolByCode } from "../classes/HTTPhelpers";
 
 function JoinButton() {
   const [inputValue, setInputValue] = useState("");
 
-  const handleButtonClick = () => {
-    console.log("Input Value: ", inputValue);
+  const { currentUser } = useFirebaseAuth();
+  const navigate = useNavigate();
+
+
+  const handleButtonClick = async () => {
+    let result = await getPoolByCode(currentUser?.uid, inputValue);
+    navigate(`/pool/${inputValue}`);
   };
 
   return (

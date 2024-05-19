@@ -47,6 +47,8 @@ export class FireStoreHelper {
       ownerId: pool.ownerId,
       guesses: pool.guesses,
       teams: pool.teams,
+      reward: pool.reward,
+      punishment: pool.reward
     };
   }
 

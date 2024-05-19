@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 
 const guessController: Router = express.Router();
 
-guessController.patch('/', (req : Request, res : Response) => {
+guessController.post('/', (req : Request, res : Response) => {
 
     let result = guessService.giveGuess(req.body.userId, req.body.poolId, req.body.guesses);
 

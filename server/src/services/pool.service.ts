@@ -7,10 +7,10 @@ import { User } from "../models/User";
 export class PoolService {
   constructor() {}
 
-  async createPool(name: string, owner_uid: string, teams: string[]) {
+  async createPool(name: string, owner_uid: string, teams: string[], reward : string, punishment : string) {
     let code = await this.getPoolCode();
     let games = await hockeyHelper.getGames(teams);
-    let newPool = new Pool(name, code, [owner_uid], games, owner_uid, [], teams);
+    let newPool = new Pool(name, code, [owner_uid], games, owner_uid, [], teams, reward || "", punishment || "");
     await firestoreHelper.createPool(newPool);
     return newPool;
   }
@@ -18,7 +18,10 @@ export class PoolService {
   async connectPool(userId: string, code: string) {
     let pool = await firestoreHelper.getPool(code);
 
-    pool.userIds.push(userId);
+    if (!pool.userIds.includes(userId)) {
+      pool.userIds.push(userId);
+    }
+    
 
     await firestoreHelper.updatePool(pool);
     return firestoreHelper.getUserPools(userId);
