@@ -1,7 +1,7 @@
 import { Button, Group, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { randomId } from '@mantine/hooks';
-import Header from "../components/Header";
+import Header from "../components/header/Header";
 
 function CreatePage() {
 	const form = useForm({
