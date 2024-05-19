@@ -2,6 +2,7 @@ import { Button, Group, MultiSelect, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Header from "../components/header/Header";
 import { useNavigate } from "react-router";
+import styles from './CreatePage.module.css';
 
 const hockeyTeams: string[] = [
 	"Anaheim Ducks (ANA)",
@@ -80,7 +81,7 @@ function CreatePage() {
 	return (
 		<>
 			<Header />
-			<div>
+			<div className={styles.formBackground}>
 				<TextInput
 					label="Pool Name"
 					placeholder="Name"
@@ -114,6 +115,7 @@ function CreatePage() {
 				/>
 				<Group justify="center" mt="xl">
 					<Button
+						className={styles.submitButton}
 						onClick={() => form.onSubmit(handleSubmit)()}
 					>
 						Create your pool
