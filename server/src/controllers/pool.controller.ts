@@ -5,28 +5,23 @@ import { StatusCodes } from "http-status-codes";
 
 const poolController: Router = express.Router();
 
-poolController.get("/", async (req: Request, res: Response) => {
-    let pools = await poolService.getPools(req.body.uid);
+poolController.get("/:uid", async (req: Request, res: Response) => {
+  console.log(req.params.uid);
+  let pools = await poolService.getPools(req.params.uid);
 
-    res.status(StatusCodes.OK)
-        .json(pools);
+  res.status(StatusCodes.OK).json(pools);
 });
 
 poolController.post("/", async (req: Request, res: Response) => {
-  let newPool = await poolService.createPool(
-    req.body.name,
-    req.body.uid,
-    req.body.teams
-  );
+  let newPool = await poolService.createPool(req.body.name, req.body.uid, req.body.teams);
 
   res.status(StatusCodes.CREATED).json(newPool);
 });
 
-poolController.post('/connect', async (req : Request, res: Response) => {
-    let pool = await poolService.connectPool(req.body.uid, req.body.code);
+poolController.post("/connect", async (req: Request, res: Response) => {
+  let pool = await poolService.connectPool(req.body.uid, req.body.code);
 
-    res.status(StatusCodes.OK)
-        .json(pool);
-})
+  res.status(StatusCodes.OK).json(pool);
+});
 
 export { poolController };

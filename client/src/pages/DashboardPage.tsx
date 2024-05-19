@@ -1,20 +1,20 @@
-import { MouseEvent, MouseEventHandler, useState } from "react";
+import { MouseEvent, MouseEventHandler, useEffect, useState } from "react";
 import { Button, Input, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
 import Header from "../components/header/Header";
-
+import { getAllEnteredPools } from "../classes/HTTPhelpers";
 
 function JoinButton() {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const handleButtonClick = () => {
-    console.log("Input Value: ", inputValue); 
+    console.log("Input Value: ", inputValue);
   };
 
   return (
     <>
-      <Input 
+      <Input
         placeholder="Code"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
@@ -41,14 +41,18 @@ function HeadingDisplay({ goToCreatePage, currentUser }: HeadingDisplayProps) {
 function DashboardPage() {
   const navigate = useNavigate();
   const { currentUser } = useFirebaseAuth();
+  const [pools, setPools] = useState([]);
 
   const goToCreatePage = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     navigate("/create");
   };
 
-  // Some get function here returning a list of pools
-  const temp_pools = ["abc123", "asdad", "anotherroom", "room3", "coolkids"];
+  useEffect(() => {
+    getAllEnteredPools(currentUser?.uid).then((data) => {
+      setPools(data);
+    });
+  }, []);
 
   return (
     <>
@@ -56,13 +60,15 @@ function DashboardPage() {
       <Text>Dashboard Page</Text>
       <HeadingDisplay goToCreatePage={goToCreatePage} currentUser={currentUser} />
       <Text>Pools display</Text>
-      {temp_pools.map((id, index) => {
+      {pools.map((id, index) => {
         return (
           <Text onClick={() => navigate(`/pool/${id}`)} key={index}>
             Room: {id}
           </Text>
         );
       })}
+
+      <Text>THSIDF JKSDNFNK: JSNDFKJ NKSD</Text>
       {/* 
       // Display the current user id and name
       <div>{currentUser?.uid}</div>

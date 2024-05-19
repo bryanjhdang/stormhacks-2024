@@ -24,7 +24,7 @@ export class PoolService {
     return firestoreHelper.getUserPools(userId);
   }
 
-  async getPools(userId : string) {
+  async getPools(userId: string) {
     return await firestoreHelper.getUserPools(userId);
   }
 
