@@ -48,10 +48,8 @@ axios
         element.homeTeam.score || 0,
         (element.gameState === `OFF` && element.awayTeam.score === 0 && element.homeTeam.score === 0) || (element.gameState === `ON`) ? result.INCOMPLETE : 
         (element.awayTeam.score > element.homeTeam.score ? result.AWAY : result.HOME)
-        //element.awayTeam.score > element.homeTeam.score : AWA
       )
       gameList.push(newGame);
-      //console.log(gameList);
     });
     console.log(gameList)
   });

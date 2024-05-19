@@ -14,7 +14,5 @@ export class Game {
         public homeTeam: string,
         public homeTeamScore: number,
         public winningTeam: result,
-        //TODO: figrue out later
-        //winner: result  
     ) {};
 }
