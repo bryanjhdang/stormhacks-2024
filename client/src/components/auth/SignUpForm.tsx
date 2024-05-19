@@ -2,8 +2,7 @@ import { TextInput, Button, Title, PasswordInput, rem } from "@mantine/core";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFirebaseAuth } from "../../contexts/FirebaseAuth.context";
-import { UserCredential } from "firebase/auth";
-// import { useInputState } from "@mantine/hooks";
+import { UserCredential, updateProfile } from "firebase/auth";
 import { IconLock, IconUser, IconMail } from "@tabler/icons-react";
 
 export function SignUpForm() {
@@ -23,14 +22,13 @@ export function SignUpForm() {
         throw new Error("Passwords do not match");
       }
 
+      // TODO: No check for duplicate email here but it will throw an error and prevent it
+      // Not pretty but whatever
+
       const userCredential: UserCredential = await firebaseSignUp(email, password);
-
-      // NOTE: make call to backend to create account (for unique email logging) (or use firebase)
-      // const response = await createAccount(username, email, password)
-
       const user = userCredential.user;
-      const jwt = await user.getIdToken();
-      sessionStorage.setItem("token", jwt);
+      await updateProfile(user, { displayName: username });
+
       setloading(false);
       navigate("/dashboard");
     } catch (e: any) {
