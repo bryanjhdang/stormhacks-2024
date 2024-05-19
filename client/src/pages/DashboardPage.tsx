@@ -10,7 +10,7 @@ interface HeadingDisplayProps {
 function HeadingDisplay({ goToCreatePage }: HeadingDisplayProps) {
   return (
     <>
-      <Text>Heading display</Text>
+      <Text>Welcome, [name]</Text>
       <Button onClick={goToCreatePage}>Create room</Button>
       <Button>Join room</Button>
     </>
