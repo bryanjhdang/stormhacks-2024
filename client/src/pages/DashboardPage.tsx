@@ -1,5 +1,5 @@
 import { MouseEvent, MouseEventHandler, useEffect, useState } from "react";
-import { Button, Input, Table, Text } from "@mantine/core";
+import { Button, Input, Table, Text, Title } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
 import Header from "../components/header/Header";
@@ -38,7 +38,7 @@ interface HeadingDisplayProps {
 function HeadingDisplay({ goToCreatePage, currentUser }: HeadingDisplayProps) {
   return (
     <div className={styles.headingContainer}>
-      <Text>Welcome, {currentUser?.displayName}!</Text>
+      <Title order={2}>Welcome, {currentUser?.displayName}!</Title>
       <div className={styles.buttonGroup}>
         <Button onClick={goToCreatePage}>Create pool</Button>
         <JoinButton />
@@ -66,33 +66,32 @@ function DashboardPage() {
   return (
     <>
       <Header />
-
-      <HeadingDisplay goToCreatePage={goToCreatePage} currentUser={currentUser} />
-      <Text>Pools display</Text>
-
-      <Table striped highlightOnHover>
-        <thead>
-          <tr>
-            <th>Pool Name</th>
-            <th>Room Code</th>
-            <th>Teams</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pools.map((pool: any, index) => (
-            <tr
-              key={index}
-              onClick={() => {
-                navigate(`/pool/${pool.roomCode}`);
-              }}
-            >
-              <td>{pool.name}</td>
-              <td>{pool.roomCode}</td>
-              <td>{pool.teams}</td>
+      <div className={styles.dashboardPage}>
+        <HeadingDisplay goToCreatePage={goToCreatePage} currentUser={currentUser} />
+        <Table striped highlightOnHover>
+          <thead>
+            <tr>
+              <th>Pool Name</th>
+              <th>Room Code</th>
+              <th>Teams</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {pools.map((pool: any, index) => (
+              <tr
+                key={index}
+                onClick={() => {
+                  navigate(`/pool/${pool.roomCode}`);
+                }}
+              >
+                <td>{pool.name}</td>
+                <td>{pool.roomCode}</td>
+                <td>{pool.teams}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </>
   );
 }

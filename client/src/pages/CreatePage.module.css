@@ -1,7 +1,18 @@
 .formBackground {
-  padding: 0px 300px
+  /* padding: 0px 300px */
 }
 
 .submitButton {
   width: 100%
+}
+
+.createPage {
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 3%;
+  padding: 3% 5%;
+  background-color: white;
+    /* color: blue; */
+  /* background-color: yellow; */
+  
 }

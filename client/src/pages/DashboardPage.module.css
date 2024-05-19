@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding-bottom: 30px;
+  padding-bottom: 70px;
 }
 
 .buttonGroup {
@@ -35,4 +35,15 @@
 .joinButtonContainer {
   display: flex;
   gap: 10px;
+}
+
+.dashboardPage {
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-bottom: 3%;
+  padding: 3% 5%;
+  background-color: white;
+  /* color: blue; */
+  /* background-color: yellow; */
+  
 }

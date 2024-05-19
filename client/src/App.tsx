@@ -13,7 +13,7 @@ import { ProtectedRoutes } from "./components/auth/ProtectedRoute";
 
 export default function App() {
   return (
-    <>
+    <div style={{background: '#E8E8E8'}}>
       <BrowserRouter>
         <MantineProvider>
           <FirebaseAuthProvider>
@@ -30,6 +30,6 @@ export default function App() {
           </FirebaseAuthProvider>
         </MantineProvider>
       </BrowserRouter>
-    </>
+    </div>
   );
 }

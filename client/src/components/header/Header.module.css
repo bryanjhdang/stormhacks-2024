@@ -1,0 +1,9 @@
+.headerTest {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+  padding: 30px 50px;
+  color: white;
+  background-color: black;
+}

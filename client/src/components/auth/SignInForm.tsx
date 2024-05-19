@@ -64,7 +64,7 @@ export function SignInForm() {
   return (
     <>
       <p className="designHeading">Sign in</p>
-      <Title order={1}>SFU Collaborative Learning Platform</Title>
+      <Title order={1}>Urban Fantasy Hockey</Title>
       {signinForm()}
     </>
   );
