@@ -1,6 +1,6 @@
 import { Title, TextInput, Button, PasswordInput, rem } from "@mantine/core";
 import { IconLock, IconUser } from "@tabler/icons-react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useInputState } from "@mantine/hooks";
@@ -27,31 +27,37 @@ export function SignInForm() {
     }
   }
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signin();
+  };
+
   const signinForm = () => {
     const iconUser = <IconUser style={{ width: rem(18), height: rem(18) }} stroke={1.5} />;
     const iconLock = <IconLock style={{ width: rem(18), height: rem(18) }} stroke={1.5} />;
 
     return (
       <>
-        {/* NOTE: Changed Username to Email */}
-        <TextInput
-          label="Email"
-          value={email}
-          onChange={(event) => setEmail(event.currentTarget.value)}
-          leftSection={iconUser}
-          required
-        />
-        <PasswordInput
-          label="Password"
-          id="your-password"
-          leftSection={iconLock}
-          value={password}
-          onChange={(event) => setPassword(event.currentTarget.value)}
-          required
-        />
-        <Button color="gray" mt={12} disabled={buttonIdle} onClick={signin} loading={buttonIdle}>
-          Sign in
-        </Button>
+        <form onSubmit={handleSubmit}>
+          <TextInput
+            label="Email"
+            value={email}
+            onChange={(event) => setEmail(event.currentTarget.value)}
+            leftSection={iconUser}
+            required
+          />
+          <PasswordInput
+            label="Password"
+            id="your-password"
+            leftSection={iconLock}
+            value={password}
+            onChange={(event) => setPassword(event.currentTarget.value)}
+            required
+          />
+          <Button color="gray" mt={12} type="submit" disabled={buttonIdle} loading={buttonIdle}>
+            Sign in
+          </Button>
+        </form>
       </>
     );
   };
