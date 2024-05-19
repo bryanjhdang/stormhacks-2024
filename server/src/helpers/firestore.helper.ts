@@ -1,7 +1,9 @@
 import * as admin from "firebase-admin"
 import rootPath from "get-root-path";
 import { Pool } from "../models/Pool";
+import dotenv from "dotenv";
 
+dotenv.config();
 
 export class FireStoreHelper  {
     private db: admin.firestore.Firestore;

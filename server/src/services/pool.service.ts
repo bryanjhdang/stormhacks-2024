@@ -21,11 +21,12 @@ export class PoolService {
 
     pool.userIds.push(user.id);
 
-    firestoreHelper.updatePool(pool);
+    await firestoreHelper.updatePool(pool);
+    return firestoreHelper.getUserPools(user.id);
   }
 
   async getPools(user : User) {
-    firestoreHelper
+    firestoreHelper.getUserPools(user.id);
   }
 
   private async getPoolCode() {
