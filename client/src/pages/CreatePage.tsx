@@ -1,6 +1,5 @@
-import { Button, Group, MultiSelect, Select, Text, TextInput } from "@mantine/core";
+import { Button, Group, MultiSelect, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { randomId } from '@mantine/hooks';
 import Header from "../components/header/Header";
 import { useNavigate } from "react-router";
 
@@ -57,7 +56,7 @@ function CreatePage() {
 			punishment: ''
 		},
 		validate: {
-			name: (value) => value.trim().length === 0 ? 'Name must not be empty' : null,
+			name: (value) => value.trim().length === 0 ? 'Name cannot be empty' : null,
 			teams: (value) => value.length === 0 ? 'At least one team must be chosen' : null
 		}
 	});
