@@ -16,9 +16,8 @@ poolController.post("/", async (req: Request, res: Response) => {
     new Date()
   );
 
-    res.status(StatusCodes.CREATED)
-        .json(newPool);
-})
+  res.status(StatusCodes.CREATED).json(newPool);
+});
 
 poolController.post('/connect', async (req : Request, res: Response) => {
     poolService.connectPool(req.body.uid, req.body.code);
