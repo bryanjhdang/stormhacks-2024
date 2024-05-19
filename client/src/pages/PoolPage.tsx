@@ -1,5 +1,7 @@
 function PoolPage() {
-    return <></>
+	return (
+		<></>
+	)
 }
 
 export default PoolPage

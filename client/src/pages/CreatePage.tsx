@@ -1,5 +1,7 @@
 function CreatePage() {
-    return <></>
+	return (
+		<></>
+	)
 }
 
 export default CreatePage
