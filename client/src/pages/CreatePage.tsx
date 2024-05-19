@@ -84,7 +84,7 @@ function CreatePage() {
   return (
     <>
       <Header />
-      <div>
+      <div className={styles.createPage}>
         <TextInput
           label="Pool Name"
           placeholder="Name"
@@ -117,7 +117,7 @@ function CreatePage() {
           {...form.getInputProps("punishment")}
         />
         <Group justify="center" mt="xl">
-          <Button onClick={() => form.onSubmit(handleSubmit)()}>Create your pool</Button>
+          <Button className={styles.submitButton} onClick={() => form.onSubmit(handleSubmit)()}>Create your pool</Button>
         </Group>
       </div>
     </>

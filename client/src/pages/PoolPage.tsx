@@ -39,19 +39,19 @@ function PoolResults(props: any) {
       <Table striped highlightOnHover>
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Game Name</th>
-            <th>Home Team</th>
-            <th>Away Team</th>
+            <th style={{ textAlign: 'center' }}>Date</th>
+            <th style={{ textAlign: 'center' }}>Game Name</th>
+            <th style={{ textAlign: 'center' }}>Home Team</th>
+            <th style={{ textAlign: 'center' }}>Away Team</th>
           </tr>
         </thead>
         <tbody>
           {poolData.games.map((game: any, index: any) => (
             <tr key={index}>
-              <td>{game.gameTime}</td>
-              <td>{game.name}</td>
+              <td style={{ textAlign: 'center' }}>{game.gameTime}</td>
+              <td style={{ textAlign: 'center' }}>{game.name}</td>
               <td
-                style={{ backgroundColor: getBackgroundColor(index, "home") }}
+                style={{ backgroundColor: getBackgroundColor(index, "home"), textAlign: 'center' }}
                 onClick={() => {
                   handleGuessChange(index, "home");
                 }}
@@ -59,7 +59,7 @@ function PoolResults(props: any) {
                 {game.homeTeam}
               </td>
               <td
-                style={{ backgroundColor: getBackgroundColor(index, "away") }}
+                style={{ backgroundColor: getBackgroundColor(index, "away"), textAlign: 'center' }}
                 onClick={() => {
                   handleGuessChange(index, "away");
                 }}
@@ -144,18 +144,20 @@ function PoolPage() {
   };
 
   return (
-    <>
+    <div>
       <Header />
-      <Flex gap="xl" direction="row">
-        <PoolResults pool_id={pool_id} />
-        <Stack miw={"25%"}>
-          <RoomCodeDisplay />
-          <Leaderboard />
-          <PunishmentDisplay />
-          <RewardDisplay />
-        </Stack>
-      </Flex>
-    </>
+      <div className={styles.poolPage}>
+        <Flex gap="xl" direction="row">
+          <PoolResults pool_id={pool_id} />
+          <Stack miw={"25%"}>
+            <RoomCodeDisplay />
+            <Leaderboard />
+            <PunishmentDisplay />
+            <RewardDisplay />
+          </Stack>
+        </Flex>
+      </div>
+    </div>
   );
 }
 
