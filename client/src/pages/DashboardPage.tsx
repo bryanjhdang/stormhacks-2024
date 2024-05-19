@@ -1,5 +1,5 @@
 import { MouseEvent, MouseEventHandler, useEffect, useState } from "react";
-import { Button, Input, Text, Title } from "@mantine/core";
+import { Button, Input, Table, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
 import Header from "../components/header/Header";
@@ -55,6 +55,7 @@ function DashboardPage() {
   useEffect(() => {
     getAllEnteredPools(currentUser?.uid).then((data) => {
       setPools(data);
+      console.log(data);
     });
   }, []);
 
@@ -72,11 +73,29 @@ function DashboardPage() {
         );
       })} */}
 
-      <Text>THSIDF JKSDNFNK: JSNDFKJ NKSD</Text>
-      {/* 
-      // Display the current user id and name
-      <div>{currentUser?.uid}</div>
-      <div>{currentUser?.displayName}</div> */}
+      <Table striped highlightOnHover>
+        <thead>
+          <tr>
+            <th>Pool Name</th>
+            <th>Room Code</th>
+            <th>Teams</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pools.map((pool: any, index) => (
+            <tr
+              key={index}
+              onClick={() => {
+                navigate(`/pool/${pool.roomCode}`);
+              }}
+            >
+              <td>{pool.name}</td>
+              <td>{pool.roomCode}</td>
+              <td>{pool.teams}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </>
   );
 }

@@ -6,7 +6,6 @@ import { StatusCodes } from "http-status-codes";
 const poolController: Router = express.Router();
 
 poolController.get("/:uid", async (req: Request, res: Response) => {
-  console.log(req.params.uid);
   let pools = await poolService.getPools(req.params.uid);
 
   res.status(StatusCodes.OK).json(pools);

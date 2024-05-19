@@ -10,15 +10,24 @@ export async function getAllEnteredPools(uid: any) {
 
 // Retrieves a Pool from a code
 export async function getPoolByCode(uid: any, pool_id: any) {
-  const result = await axios.post(`${API_URL}/connect`, {
-    params: {
-      uid,
+  try {
+    const result = await axios.post(`${API_URL}/pool/connect`, {
+      uid: uid,
       code: pool_id,
-    },
+    });
+    return result.data;
+  } catch (e) {
+    alert(e);
+  }
+}
+
+// Used to create a Pool
+export async function postPool(name: any, uid: any, teams: any) {
+  const result = await axios.post(`${API_URL}/pool/`, {
+    uid: uid,
+    name: name,
+    teams: teams,
   });
 
   return result.data;
 }
-
-// Used to create a Pool
-export function postPool() {}

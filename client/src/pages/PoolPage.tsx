@@ -1,28 +1,23 @@
 import { ActionIcon, Box, Button, Flex, Group, Stack, Table, Text, Title } from "@mantine/core";
 import Header from "../components/header/Header";
 import { useParams } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFirebaseAuth } from "../contexts/FirebaseAuth.context";
-import styles from './PoolPage.module.css';
+import styles from "./PoolPage.module.css";
 import { IconCopy } from "@tabler/icons-react";
+import { getPoolByCode } from "../classes/HTTPhelpers";
 
-// TODO THIS IS STUB DATA HERE KJLANSKJD KJASDKJ ASKJND K:JASNDKJ KJASDKJLASKJLDNKJLANSDLKJ:NASKJD:NKJL
-interface Game {
-  date: string;
-  homeTeam: string;
-  awayTeam: string;
-}
-const data: Game[] = [
-  { date: "2024-05-01", homeTeam: "Team A", awayTeam: "Team B" },
-  { date: "2024-05-02", homeTeam: "Team C", awayTeam: "Team D" },
-  { date: "2024-05-03", homeTeam: "Team E", awayTeam: "Team F" },
-];
-
-function PoolResults(pool_id: any) {
+function PoolResults(props: any) {
   const [guesses, setGuesses] = useState<{ [key: number]: string }>({});
+  const [poolData, setPoolData] = useState<any>({ games: [] });
+
   const { currentUser } = useFirebaseAuth();
 
-  const uid = currentUser?.uid;
+  useEffect(() => {
+    getPoolByCode(currentUser?.uid, props.pool_id).then((data) => {
+      setPoolData(data[0]);
+    });
+  }, []);
 
   // get potential existing guesses for a user
 
@@ -45,14 +40,16 @@ function PoolResults(pool_id: any) {
         <thead>
           <tr>
             <th>Date</th>
+            <th>Game Name</th>
             <th>Home Team</th>
             <th>Away Team</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((game, index) => (
+          {poolData.games.map((game: any, index: any) => (
             <tr key={index}>
-              <td>{game.date}</td>
+              <td>{game.gameTime}</td>
+              <td>{game.name}</td>
               <td
                 style={{ backgroundColor: getBackgroundColor(index, "home") }}
                 onClick={() => {
@@ -76,6 +73,8 @@ function PoolResults(pool_id: any) {
       <Button
         onClick={() => {
           console.log(guesses);
+          console.log(poolData);
+          console.log(poolData.games);
         }}
       >
         Confirm Bets
@@ -91,29 +90,28 @@ function PoolPage() {
     if (pool_id) {
       navigator.clipboard.writeText(pool_id);
     }
-  }
+  };
 
   const RoomCodeDisplay = () => {
     return (
-      <Group className={styles.roomCodeDisplay} style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Group
+        className={styles.roomCodeDisplay}
+        style={{ display: "flex", justifyContent: "space-between" }}
+      >
         <Text>Room Code: {pool_id}</Text>
-        <ActionIcon
-          variant="transparent"
-          color="rgba(0, 0, 0, 1)"
-          onClick={CopyRoomCode}
-        >
-          <IconCopy/>
+        <ActionIcon variant="transparent" color="rgba(0, 0, 0, 1)" onClick={CopyRoomCode}>
+          <IconCopy />
         </ActionIcon>
       </Group>
-    )
-  }
+    );
+  };
 
   const PunishmentDisplay = () => {
     return (
       <Stack className={styles.punishmentDisplay}>
         <Text>Punishment: </Text>
       </Stack>
-    )
+    );
   };
 
   const RewardDisplay = () => {
@@ -122,7 +120,7 @@ function PoolPage() {
         <Text>Reward: </Text>
       </Stack>
     );
-  }
+  };
 
   const Leaderboard = () => {
     // TODO : Change this with actual data later
@@ -131,14 +129,14 @@ function PoolPage() {
       { name: "Brian Fraser", score: 95 },
       { name: "Joe Mama", score: 140 },
     ];
- 
+
     leaderboardData.sort((a, b) => b.score - a.score);
-    
+
     return (
       <Stack className={styles.leaderboardDisplay}>
         <Title order={3}>Leaderboard</Title>
         {leaderboardData.map((entry, index) => (
-          <Box key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box key={index} style={{ display: "flex", justifyContent: "space-between" }}>
             <Text>{entry.name}</Text>
             <Text>{entry.score}</Text>
           </Box>
@@ -150,12 +148,9 @@ function PoolPage() {
   return (
     <>
       <Header />
-      <Flex
-        gap="xl"
-        direction="row"
-      >
+      <Flex gap="xl" direction="row">
         <PoolResults pool_id={pool_id} />
-        <Stack miw={'25%'}>
+        <Stack miw={"25%"}>
           <RoomCodeDisplay />
           <Leaderboard />
           <PunishmentDisplay />
