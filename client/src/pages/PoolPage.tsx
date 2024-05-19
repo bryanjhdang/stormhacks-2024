@@ -114,10 +114,9 @@ function PoolPage() {
 
   return (
     <>
-      <Text>Pool page</Text>
-
       {/* Header */}
       <Header />
+      <div>You are currently in pool: {pool_id}</div>
       {/* Left side */}
       <PoolResults pool_id={pool_id} />
       {/* Pool result */}
