@@ -6,22 +6,15 @@ import Header from "../components/header/Header";
 
 interface HeadingDisplayProps {
   goToCreatePage: MouseEventHandler<HTMLButtonElement>;
+  currentUser: any;
 }
 
-function HeadingDisplay({ goToCreatePage }: HeadingDisplayProps) {
+function HeadingDisplay({ goToCreatePage, currentUser }: HeadingDisplayProps) {
   return (
     <>
-      <Text>Welcome, [name]</Text>
+      <Text>Welcome, {currentUser?.displayName}!</Text>
       <Button onClick={goToCreatePage}>Create room</Button>
       <Button>Join room</Button>
-    </>
-  );
-}
-
-function PoolsDisplay() {
-  return (
-    <>
-      <Text>Pools display</Text>
     </>
   );
 }
@@ -35,12 +28,22 @@ function DashboardPage() {
     navigate("/create");
   };
 
+  // Some get function here returning a list of pools
+  const temp_pools = ["abc123", "asdad", "anotherroom", "room3", "coolkids"];
+
   return (
     <>
       <Header />
       <Text>Dashboard Page</Text>
-      <HeadingDisplay goToCreatePage={goToCreatePage} />
-      <PoolsDisplay />
+      <HeadingDisplay goToCreatePage={goToCreatePage} currentUser={currentUser} />
+      <Text>Pools display</Text>
+      {temp_pools.map((id, index) => {
+        return (
+          <Text onClick={() => navigate(`/pool/${id}`)} key={index}>
+            Room: {id}
+          </Text>
+        );
+      })}
       {/* 
       // Display the current user id and name
       <div>{currentUser?.uid}</div>

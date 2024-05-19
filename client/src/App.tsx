@@ -24,7 +24,7 @@ export default function App() {
               <Route element={<ProtectedRoutes />}>
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/create" element={<CreatePage />} />
-                <Route path="/pool" element={<PoolPage />} />
+                <Route path="/pool/:pool_id" element={<PoolPage />} />
               </Route>
             </Routes>
           </FirebaseAuthProvider>
