@@ -20,6 +20,8 @@ poolController.post("/", async (req: Request, res: Response) => {
         .json(newPool);
 })
 
-poolController.post('/connect')
+poolController.post('/connect', async (req : Request, res: Response) => {
+    poolService.connectPool(req.body.uid, req.body.code);
+})
 
 export { poolController };
