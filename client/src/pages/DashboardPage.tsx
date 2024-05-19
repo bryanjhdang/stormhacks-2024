@@ -74,7 +74,7 @@ function DashboardPage() {
               <th>Pool Name</th>
               <th>Room Code</th>
               <th>Teams</th>
-            </tr>
+            </tr> 
           </thead>
           <tbody>
             {pools.map((pool: any, index) => (

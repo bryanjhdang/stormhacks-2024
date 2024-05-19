@@ -133,8 +133,8 @@ function PoolPage() {
   const Leaderboard = () => {
     // TODO : Change this with actual data later
     const leaderboardData = [
-      { name: "Bob Gill", score: 120 },
-      { name: "Brian Fraser", score: 95 },
+      { name: "J T MILLERRR", score: 120 },
+      { name: "Joe Dada", score: 95 },
       { name: "Joe Mama", score: 140 },
     ];
 
@@ -162,8 +162,8 @@ function PoolPage() {
           <Stack miw={"25%"}>
             <RoomCodeDisplay />
             <Leaderboard />
-            <PunishmentDisplay />
-            <RewardDisplay />
+            {/* <PunishmentDisplay /> */}
+            {/* <RewardDisplay /> */}
           </Stack>
         </Flex>
       </div>
