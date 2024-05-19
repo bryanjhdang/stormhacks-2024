@@ -8,6 +8,7 @@ import { userController } from "./controllers/user.controller";
 import { Game, result } from "./models/Game";
 import { hockeyHelper } from "./helpers/hockey.helper";
 import { poolController } from "./controllers/pool.controller";
+import { guessController } from "./controllers/guess.controller";
 const axios = require("axios").default;
 
 var gameList: Game[] = [];
@@ -72,6 +73,7 @@ app.get(`/`, (req: Request, res: Response) => {
 
 app.use("/user", userController);
 app.use("/pool", poolController);
+app.use("/guess", guessController);
 
 app.get("/tomorrow", hockeyHelper.getTomorrowsResults);
 app.get("/yesterday", hockeyHelper.getYesterdaysResults);
