@@ -5,15 +5,18 @@ import { StatusCodes } from "http-status-codes";
 
 const poolController: Router = express.Router();
 
-poolController.get('/', (req : Request, res : Response) => {
+poolController.get("/", (req: Request, res: Response) => {});
 
-})
+poolController.post("/", async (req: Request, res: Response) => {
+  let newPool = await poolService.createPool(
+    req.body.name,
+    req.body.uid,
+    req.body.teams,
+    new Date(),
+    new Date()
+  );
 
-poolController.post('/', async (req : Request, res : Response) => {
-    let newPool = await poolService.createPool(req.body.name, res.locals.user, req.body.teams, new Date(), new Date());
-
-    res.status(StatusCodes.CREATED)
-        .json(newPool);
-})
+  res.status(StatusCodes.CREATED).json(newPool);
+});
 
 export { poolController };
