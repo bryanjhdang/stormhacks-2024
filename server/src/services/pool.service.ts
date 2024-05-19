@@ -5,18 +5,17 @@ import { Pool } from "../models/Pool";
 import { User } from "../models/User";
 
 export class PoolService {
-  constructor() {
-  }
+  constructor() {}
 
-  async createPool(name: string, owner: User, teams : string[], begin: Date, end: Date) {
+  async createPool(name: string, owner_uid: string, teams: string[], begin: Date, end: Date) {
     let code = await this.getPoolCode();
     let games = await hockeyHelper.getGames(teams);
-    let newPool = new Pool(name, code, [], games, owner.id, [], teams);
+    let newPool = new Pool(name, code, [], games, owner_uid, [], teams);
     firestoreHelper.createPool(newPool);
     return newPool;
   }
 
-  async connectPool(user : User, code : string) {
+  async connectPool(user: User, code: string) {
     let pool = await firestoreHelper.getPool(code);
 
     pool.userIds.push(user.id);
@@ -25,24 +24,23 @@ export class PoolService {
     return firestoreHelper.getUserPools(user.id);
   }
 
-  async getPools(user : User) {
+  async getPools(user: User) {
     firestoreHelper.getUserPools(user.id);
   }
 
   private async getPoolCode() {
     let pools = await firestoreHelper.getAllPools();
-    let newCode : string = "";
-    while (newCode == "" || pools.some(pool => pool.roomCode == newCode)) {
-        newCode =
-        Array(4)
+    let newCode: string = "";
+    while (newCode == "" || pools.some((pool) => pool.roomCode == newCode)) {
+      newCode = Array(4)
         .fill("x")
         .join("")
         .replace(/x/g, () => {
           return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-        })
+        });
     }
 
-    return newCode; 
+    return newCode;
   }
 }
 
