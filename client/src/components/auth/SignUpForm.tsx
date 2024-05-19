@@ -83,7 +83,7 @@ export function SignUpForm() {
   return (
     <>
       <p className="designHeading">Sign up</p>
-      <Title order={1}>SFU Collaborative Learning Platform</Title>
+      <Title order={1}>Urban Fantasy Hockey</Title>
       {accountSetupForm()}
     </>
   );
