@@ -47,11 +47,10 @@ function PoolPage() {
 
   return (
     <>
-      <Text>Pool page</Text>
-
-      <div>You are currently in pool: {pool_id}</div>
+      
       {/* Header */}
       <Header />
+      <div>You are currently in pool: {pool_id}</div>
       {/* Left side */}
       <PoolResults />
       {/* Pool result */}
